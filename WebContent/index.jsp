@@ -7,7 +7,8 @@
 charset=UTF-8">
 <title>Login</title>
 </head>
-<%
+<!-- before delegating the processing of the business logic to JavaBeans from JSP -->
+<% 
 	String errMsg = null;
 	//first check whether the form was submitted
 	if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit") != null) {
