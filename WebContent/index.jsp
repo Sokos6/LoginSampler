@@ -7,22 +7,28 @@
 charset=UTF-8">
 <title>Login</title>
 </head>
-<!-- before delegating the processing of the business logic to JavaBeans from JSP -->
-<% 
+<%
 	String errMsg = null;
-	//first check whether the form was submitted
+%>
+<%
 	if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit") != null) {
-		//form was submitted
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		if ("admin".equalsIgnoreCase(userName) && "admin".equalsIgnoreCase(password)) {
+%>
+<jsp:useBean id="loginBean"
+	class="beans.LoginBean">
+	<jsp:setProperty name="loginBean" property="*" />
+</jsp:useBean>
+<%
+	if (loginBean.isValidUser()) {
 			//valid user
-			out.println("Welcome admin !");
-			return;
+			out.println("<h2>Welcome admin !</h2>");
+			out.println("You are successfully logged in");
 		} else {
-			//invalid user. Set error message
+
 			errMsg = "Invalid user id or password. Please try again";
+
 		}
+%>
+<%
 	}
 %>
 <body>
@@ -31,10 +37,9 @@ charset=UTF-8">
 	<%
 		if (errMsg != null) {
 	%>
-	<span style="color: red;">
-		<%
-			out.print(errMsg);
-		%>
+	<span style="color: red;"> <%
+ 	out.print(errMsg);
+ %>
 	</span>
 	<%
 		}
